@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+// import EditorPanel from './EditorPanel';
+// import Preview from './Preview';
+import './index.css';
+
+const defaultConfig = {
+  layout: 'A',
+  typography: { fontFamily: 'Inter', fontWeight: 500, fontSize: 16 },
+  button: {
+    borderRadius: 10,
+    shadow: 'small',
+    alignment: 'center',
+    backgroundColor: '#d16a4a',
+    textColor: '#ffffff',
+    padding: 12
+  },
+  gallery: { alignment: 'left', spacing: 8, imageBorderRadius: 8 },
+  layoutSettings: { cardCornerRadius: 12, containerPadding: 24, sectionBackgroundColor: '#ffffff' },
+  stroke: { strokeColor: '#e6e6e6', strokeWeight: 1 }
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [uiConfig, setUiConfig] = useState(defaultConfig);
+
+  const update = (path, value) => {
+    setUiConfig(prev => {
+      const next = JSON.parse(JSON.stringify(prev));
+      const keys = path.split('.');
+      let cur = next;
+      for (let i=0; i<keys.length-1; i++) cur = cur[keys[i]];
+      cur[keys[keys.length-1]] = value;
+      return next;
+    });
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      <div className="editor">
+        <h3>UI Editor</h3>
+        <EditorPanel uiConfig={uiConfig} onChange={update} setUiConfig={setUiConfig} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="preview-wrap">
+        <Preview uiConfig={uiConfig} onChange={update} />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
