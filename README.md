@@ -113,14 +113,60 @@ Key features include:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/ui-editor.git
-cd ui-editor
+git clone https://github.com/arpitaggarwal0511/ikarus3D_assignment.git
+cd dynamicui
 
 # Install dependencies
 npm install
 
 # Start the dev server
-npm start
+npm run dev
 
 # Build for production
 npm run build
+
+## 🧾 Additional Notes
+
+- **Responsive Design:** Works seamlessly on all screen sizes.  
+- **Mobile Sidebar Behavior:** Auto-closes on small screens with a tap-outside overlay and a hamburger toggle.  
+- **JSON Config:** Ideal for designers to share consistent theme configurations.  
+- **Extensible:** You can easily add more customization options (e.g., animations, gradients, or spacing controls).
+
+---
+
+## 📁 Folder Structure
+
+src/
+├── assets/
+├── components/
+│ ├── controls/
+│ │ ├── ButtonGroup.jsx
+│ │ ├── ColorPicker.jsx
+│ │ ├── Select.jsx
+│ │ └── Slider.jsx
+│ ├── EditorSidebar.jsx
+│ └── Preview.jsx
+├── pages/
+│ ├── About.jsx
+│ ├── EditorPage.jsx
+│ └── NotFound.jsx
+├── utils/
+│ ├── fileUtils.js
+│ └── useLocalStorage.js
+├── App.jsx
+├── App.css
+├── index.css
+└── main.jsx
+
+---
+
+## 🧑‍💻 Author Notes
+
+Built as a **configurable UI design playground** for rapid prototyping and visual experimentation.  
+Emphasizes **clean UX**, **responsive behavior**, and **modular React architecture**.
+
+---
+
+## 📜 License
+
+This project is released under the **MIT License** — feel free to modify and extend.
