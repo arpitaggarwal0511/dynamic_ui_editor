@@ -107,29 +107,23 @@ export default function EditorSidebar({
       <fieldset className="panel">
         <legend>Typography</legend>
         <Select
-          id="fontFamily"
-          label="Font Family"
-          value={styles.fontFamily}
-          onChange={(v) => handleChange("fontFamily", v)}
-          options={[
-            {
-              value: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto",
-              label: "Inter",
-            },
-            {
-              value: "Roboto, system-ui, -apple-system, 'Segoe UI'",
-              label: "Roboto",
-            },
-            {
-              value: "Poppins, system-ui, -apple-system",
-              label: "Poppins",
-            },
-            {
-              value: "ui-sans-serif, system-ui, -apple-system",
-              label: "System Default",
-            },
-          ]}
-        />
+  id="fontFamily"
+  label="Font Family"
+  value={styles.fontFamily}
+  onChange={(v) => handleChange("fontFamily", v)}
+  options={[
+    { value: "Inter, sans-serif", label: "Inter" },
+    { value: "Roboto, sans-serif", label: "Roboto" },
+    { value: "Poppins, sans-serif", label: "Poppins" },
+    { value: "Playfair Display, serif", label: "Playfair Display" },
+    { value: "Montserrat, sans-serif", label: "Montserrat" },
+    { value: "Merriweather, serif", label: "Merriweather" },
+    { value: "Lobster, cursive", label: "Lobster" },
+    { value: "'Source Code Pro', monospace", label: "Source Code Pro" },
+    { value: "Cinzel, serif", label: "Cinzel" },
+  ]}
+/>
+
 
         <Slider
           id="fontSize"

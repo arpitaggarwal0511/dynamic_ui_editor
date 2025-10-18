@@ -7,7 +7,7 @@ const STORAGE_KEY = "ui-editor-config-v1";
 
 export default function EditorPage() {
   const defaultStyles = {
-    fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto",
+    fontFamily: "Inter, sans-serif",
     fontSize: 36,
     fontWeight: "700",
     buttonBorderRadius: 8,

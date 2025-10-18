@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
   const {
     fontFamily,
@@ -22,17 +20,11 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
   } = styles;
 
   const themeVars = {
-    "--preview-font-family": fontFamily,
-    "--preview-font-size": `${fontSize}px`,
     "--preview-section-bg": sectionBgColor,
     "--preview-card-radius": `${cardBorderRadius}px`,
     "--preview-container-padding": `${containerPadding}px`,
     "--preview-stroke-color": strokeColor,
     "--preview-stroke-weight": `${strokeWeight}px`,
-    "--btn-bg": buttonBgColor,
-    "--btn-color": buttonTextColor,
-    "--btn-radius": `${buttonBorderRadius}px`,
-    "--btn-shadow": buttonShadow === "none" ? "none" : buttonShadow,
   };
 
   const images = [
@@ -45,7 +37,18 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
   const isSplit = layout === "alternative";
 
   return (
-    <main className="preview" style={themeVars}>
+    <main
+      className="preview"
+      style={{
+        ...themeVars,
+        fontFamily,
+        fontSize: `${fontSize}px`,
+        fontWeight,
+        backgroundColor: sectionBgColor,
+        color: "#fff",
+        transition: "all 0.3s ease",
+      }}
+    >
       {/* --- Top header --- */}
       <div className="preview-top">
         <button
@@ -60,33 +63,18 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
           <h1>Dynamic UI Component</h1>
           <p className="muted">Live preview updates as you customize.</p>
         </div>
-
-        <div className="preview-actions">
-          <button
-            className="primary-btn"
-            style={{
-              backgroundColor: buttonBgColor,
-              color: buttonTextColor,
-              borderRadius: buttonBorderRadius,
-              boxShadow: buttonShadow === "none" ? "none" : buttonShadow,
-            }}
-          >
-            Buy Now
-          </button>
-        </div>
       </div>
 
       {/* --- Main Canvas --- */}
       <section
         className={`canvas ${isSplit ? "split" : "stack"}`}
         style={{
-          backgroundColor: sectionBgColor,
           borderRadius: cardBorderRadius,
           border: `${strokeWeight}px solid ${strokeColor}`,
           padding: containerPadding,
         }}
       >
-        {/* --- Left side (Gallery + Image) --- */}
+        {/* --- Left side --- */}
         <div className="preview-left">
           <div className="product-hero">
             <img
@@ -116,27 +104,14 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
           </div>
         </div>
 
-        {/* --- Right side (Text + Button) --- */}
+        {/* --- Right side --- */}
         <aside className="preview-right">
-          <h2
-            className="product-name"
-            style={{
-              fontFamily,
-              fontSize,
-              fontWeight,
-            }}
-          >
-            DYNAMIC CONTENT TEXT
-          </h2>
-
+          <h2 className="product-name">DYNAMIC CONTENT TEXT</h2>
           <p className="muted">
             Use the editor sidebar to tweak typography, colors, and layout.
           </p>
 
-          <div
-            className="cta-row"
-            style={{ justifyContent: buttonAlignment }}
-          >
+          <div className="cta-row" style={{ justifyContent: buttonAlignment }}>
             <button
               className="primary-btn large"
               style={{
@@ -149,8 +124,6 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
               Preview Button
             </button>
           </div>
-
-          
         </aside>
       </section>
     </main>
