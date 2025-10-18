@@ -30,16 +30,19 @@ export default function EditorPage() {
     loadFromStorage(STORAGE_KEY, defaultStyles)
   );
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1000);
 
-  // Persist config
+  // Save styles persistently
   useEffect(() => {
     saveToStorage(STORAGE_KEY, styles);
   }, [styles]);
 
-  // Resize: close sidebar on small devices
+  // Responsive sidebar toggle
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1000) setSidebarOpen(false);
+      const mobile = window.innerWidth < 1000;
+      setIsMobile(mobile);
+      if (mobile) setSidebarOpen(false);
       else setSidebarOpen(true);
     };
     handleResize();
@@ -47,7 +50,6 @@ export default function EditorPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Export JSON
   const handleExport = useCallback(() => {
     const dataStr =
       "data:text/json;charset=utf-8," +
@@ -58,7 +60,6 @@ export default function EditorPage() {
     link.click();
   }, [styles]);
 
-  // Import JSON
   const handleImport = useCallback((e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -74,16 +75,10 @@ export default function EditorPage() {
     reader.readAsText(file);
   }, []);
 
-  // Reset
   const handleReset = useCallback(() => {
     if (window.confirm("Reset to default settings?")) {
       setStyles(defaultStyles);
     }
-  }, []);
-
-  // Toggle Sidebar
-  const handleToggleSidebar = useCallback(() => {
-    setSidebarOpen((prev) => !prev);
   }, []);
 
   return (
@@ -100,8 +95,19 @@ export default function EditorPage() {
       <Preview
         styles={styles}
         isSidebarOpen={isSidebarOpen}
-        onToggleSidebar={handleToggleSidebar}
+        onToggleSidebar={() => setSidebarOpen((v) => !v)}
       />
+
+      {/* Floating hamburger visible when sidebar closed */}
+      {!isSidebarOpen && !isMobile && (
+        <button
+          className="floating-hamburger"
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Open editor sidebar"
+        >
+          ☰
+        </button>
+      )}
     </div>
   );
 }

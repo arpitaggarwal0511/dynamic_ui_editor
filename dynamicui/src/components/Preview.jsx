@@ -1,4 +1,6 @@
-export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
+import React from "react";
+
+export default function Preview({ styles, onToggleSidebar }) {
   const {
     fontFamily,
     fontSize,
@@ -43,7 +45,6 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
   ];
 
   const isSplit = layout === "alternative";
-  console.log("Current alignment:", buttonAlignment);
 
   return (
     <main
@@ -56,25 +57,21 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
         backgroundColor: sectionBgColor,
         color: "#fff",
         transition: "all 0.3s ease",
+        minHeight: "100vh",
       }}
     >
-      {/* --- Top header --- */}
+      {/* Top Bar */}
       <div className="preview-top">
-        <button
-          className="hamburger"
-          onClick={onToggleSidebar}
-          aria-label="Toggle editor sidebar"
-        >
+        <button className="hamburger" onClick={onToggleSidebar}>
           ☰
         </button>
-
         <div className="preview-title">
           <h1>Dynamic UI Component</h1>
           <p className="muted">Live preview updates as you customize.</p>
         </div>
       </div>
 
-      {/* --- Main Canvas --- */}
+      {/* Canvas */}
       <section
         className={`canvas ${isSplit ? "split" : "stack"}`}
         style={{
@@ -83,7 +80,7 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
           padding: containerPadding,
         }}
       >
-        {/* --- Left side --- */}
+        {/* Left */}
         <div className="preview-left">
           <div className="product-hero">
             <img
@@ -98,7 +95,7 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
             className="gallery"
             style={{
               justifyContent: galleryAlignment,
-              gap: galleryGap,
+              gap: `${galleryGap}px`,
             }}
           >
             {images.map((src, i) => (
@@ -113,7 +110,7 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
           </div>
         </div>
 
-        {/* --- Right side --- */}
+        {/* Right */}
         <aside className="preview-right">
           <h2 className="product-name">DYNAMIC CONTENT TEXT</h2>
           <p className="muted">
@@ -122,7 +119,10 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
 
           <div
             className="cta-row"
-            style={{ justifyContent: alignmentMap[buttonAlignment] }}
+            style={{
+              justifyContent: alignmentMap[buttonAlignment],
+              display: "flex",
+            }}
           >
             <button
               className="primary-btn large"
@@ -136,8 +136,6 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
               Preview Button
             </button>
           </div>
-
-
         </aside>
       </section>
     </main>
