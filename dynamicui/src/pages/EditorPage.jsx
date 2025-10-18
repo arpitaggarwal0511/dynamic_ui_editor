@@ -26,21 +26,39 @@ export default function EditorPage() {
     strokeWeight: 1,
   };
 
-  const [styles, setStyles] = useState(() => loadFromStorage(STORAGE_KEY, defaultStyles));
+  const [styles, setStyles] = useState(() =>
+    loadFromStorage(STORAGE_KEY, defaultStyles)
+  );
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
+  // Persist config
   useEffect(() => {
     saveToStorage(STORAGE_KEY, styles);
   }, [styles]);
 
+  // Resize: close sidebar on small devices
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1000) setSidebarOpen(false);
+      else setSidebarOpen(true);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Export JSON
   const handleExport = useCallback(() => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(styles, null, 2));
+    const dataStr =
+      "data:text/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(styles, null, 2));
     const link = document.createElement("a");
     link.href = dataStr;
     link.download = "ui-config.json";
     link.click();
   }, [styles]);
 
+  // Import JSON
   const handleImport = useCallback((e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -56,35 +74,33 @@ export default function EditorPage() {
     reader.readAsText(file);
   }, []);
 
+  // Reset
   const handleReset = useCallback(() => {
     if (window.confirm("Reset to default settings?")) {
       setStyles(defaultStyles);
     }
   }, []);
 
-  useEffect(() => {
-    const onResize = () => setSidebarOpen(window.innerWidth >= 1000);
-    window.addEventListener("resize", onResize);
-    onResize();
-    return () => window.removeEventListener("resize", onResize);
+  // Toggle Sidebar
+  const handleToggleSidebar = useCallback(() => {
+    setSidebarOpen((prev) => !prev);
   }, []);
 
   return (
     <div className="app-root">
-      {isSidebarOpen && (
-        <EditorSidebar
-          styles={styles}
-          setStyles={setStyles}
-          onExport={handleExport}
-          onImport={handleImport}
-          onReset={handleReset}
-          onClose={() => setSidebarOpen(false)}
-        />
-      )}
+      <EditorSidebar
+        styles={styles}
+        setStyles={setStyles}
+        onExport={handleExport}
+        onImport={handleImport}
+        onReset={handleReset}
+        isOpen={isSidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
       <Preview
         styles={styles}
         isSidebarOpen={isSidebarOpen}
-        onToggleSidebar={() => setSidebarOpen((v) => !v)}
+        onToggleSidebar={handleToggleSidebar}
       />
     </div>
   );
