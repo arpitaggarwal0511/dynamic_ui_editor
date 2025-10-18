@@ -8,7 +8,7 @@ Built with a modular architecture and an intuitive editor interface inspired by 
 ## 🚀 Live Demo
 
 🔗 **Deployed via Vercel:** [Live Demo Link](#)  
-*(Replace with your actual deployment URL once available.)*
+*(https://ikarus3-d-assignment.vercel.app/)*
 
 ---
 
