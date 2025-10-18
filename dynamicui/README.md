@@ -1,16 +1,173 @@
-# React + Vite
+# 🎨 Dynamic UI Component Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fully interactive **React-based UI customization tool** that lets users dynamically modify typography, colors, layout, button styles, and images — all in real time.  
+Built with a modular architecture and an intuitive editor interface inspired by Figma-style design tools.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## React Compiler
+🔗 **Deployed via Vercel:** [Live Demo Link](https://ikarus3-d-assignment.vercel.app/)  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🧩 Project Overview
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This project provides a **live editor and preview environment** for experimenting with visual design elements dynamically.  
+It allows designers and developers to **instantly preview UI updates** without manually editing CSS or JSX.
+
+Key features include:
+- 🧱 Configurable layout modes (`stack` / `split`)
+- 🎨 Live color, typography, and border radius customization
+- 🖼️ Dynamic image gallery with spacing and alignment options
+- 🔘 Button customization: background, text color, shadows, alignment
+- 💾 JSON export/import for saving or reloading configurations
+- 📱 Fully responsive design for desktop and mobile devices
+
+---
+
+## 🧠 Core Components
+
+### **1. `EditorSidebar.jsx`**
+- Main control panel for editing all visual properties.
+- Provides grouped panels for:
+  - Layout (padding, border radius, background)
+  - Typography (font family, size, weight)
+  - Button styling (radius, shadow, colors, alignment)
+  - Image gallery (alignment, spacing, border radius)
+  - Border/stroke (color, weight)
+- Supports:
+  - Live updates through React state
+  - JSON Export/Import
+  - Reset to defaults
+
+### **2. `Preview.jsx`**
+- Displays real-time visual preview of the configured component.
+- Supports:
+  - Dynamic rendering based on `layout` mode:
+    - `default` → stacked layout
+    - `alternative` → split layout
+  - Responsive adjustments for smaller screens.
+  - Floating hamburger menu for toggling sidebar on mobile.
+
+### **3. `EditorPage.jsx`**
+- Parent orchestrator combining the editor and preview.
+- Handles:
+  - Sidebar open/close logic
+  - Local storage persistence for all styles
+  - Device-based layout behavior (auto-hide sidebar on small screens)
+
+### **4. `utils/useLocalStorage.js` & `fileUtils.js`**
+- Helpers for saving and loading style states persistently.
+- Handles exporting and importing user configurations safely.
+
+---
+
+## ⚙️ Component API
+
+| Prop | Type | Default | Description |
+|------|------|----------|-------------|
+| `styles` | `object` | Predefined defaults | Style configuration object containing all UI customization states |
+| `setStyles` | `function` | — | React state updater function for real-time style changes |
+| `onExport` | `function` | — | Triggered when the user clicks **Export JSON** |
+| `onImport` | `function` | — | Reads uploaded JSON and merges into existing styles |
+| `onReset` | `function` | — | Resets all style settings to project defaults |
+| `isOpen` | `boolean` | `true` | Controls sidebar visibility |
+| `onClose` | `function` | — | Handles closing of the sidebar |
+
+---
+
+## 🖌️ Customization Features
+
+| Category | Customizable Properties |
+|-----------|--------------------------|
+| **Layout** | Mode (stack/split), container padding, card corner radius, section background |
+| **Typography** | Font family, font size, font weight |
+| **Button** | Alignment, border radius, shadow intensity, background color, text color |
+| **Image Gallery** | Alignment, gap between images, image border radius |
+| **Borders** | Stroke color and thickness |
+
+---
+
+## 🧱 Tech Stack
+
+- **React 18+**
+- **CSS3 (Custom variables + responsive design)**
+- **LocalStorage API** for state persistence
+- **Vite / Create React App** (depending on setup)
+- **Vercel** for deployment
+
+---
+
+## 🧰 How It Works
+
+1. **Sidebar Controls:** User interacts with sliders, color pickers, and dropdowns.  
+2. **State Updates:** Each change updates a centralized `styles` object in React state.  
+3. **Live Preview:** The `Preview` component uses inline styles + CSS variables to instantly reflect changes.  
+4. **Persistence:** Changes are saved in localStorage and reloaded automatically on next visit.  
+5. **Export / Import:** User can save or reload previous UI configurations via JSON files.
+
+---
+
+## 🧪 Running Locally
+
+```bash
+# Clone the repository
+git clone https://github.com/arpitaggarwal0511/dynamic_ui_editor.git
+cd dynamicui
+
+# Install dependencies
+npm install
+
+# Start the dev server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## 🧾 Additional Notes
+
+- **Responsive Design:** Works seamlessly on all screen sizes.  
+- **Mobile Sidebar Behavior:** Auto-closes on small screens with a tap-outside overlay and a hamburger toggle.  
+- **JSON Config:** Ideal for designers to share consistent theme configurations.  
+- **Extensible:** You can easily add more customization options (e.g., animations, gradients, or spacing controls).
+
+---
+
+## 📁 Folder Structure
+```
+src/
+├── assets/
+├── components/
+│ ├── controls/
+│ │ ├── ButtonGroup.jsx
+│ │ ├── ColorPicker.jsx
+│ │ ├── Select.jsx
+│ │ └── Slider.jsx
+│ ├── EditorSidebar.jsx
+│ └── Preview.jsx
+├── pages/
+│ ├── About.jsx
+│ ├── EditorPage.jsx
+│ └── NotFound.jsx
+├── utils/
+│ ├── fileUtils.js
+│ └── useLocalStorage.js
+├── App.jsx
+├── App.css
+├── index.css
+└── main.jsx
+```
+---
+
+## 🧑‍💻 Author Notes
+
+Built as a **configurable UI design playground** for rapid prototyping and visual experimentation.  
+Emphasizes **clean UX**, **responsive behavior**, and **modular React architecture**.
+
+---
+
+## 📜 License
+
+This project is released under the **MIT License** — feel free to modify and extend.
