@@ -113,7 +113,7 @@ Key features include:
 
 ```bash
 # Clone the repository
-git clone https://github.com/arpitaggarwal0511/ikarus3D_assignment.git
+git clone https://github.com/arpitaggarwal0511/dynamic_ui_editor.git
 cd dynamicui
 
 # Install dependencies
