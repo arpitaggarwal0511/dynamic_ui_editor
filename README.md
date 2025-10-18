@@ -136,7 +136,7 @@ npm run build
 ---
 
 ## 📁 Folder Structure
-
+```
 src/
 ├── assets/
 ├── components/
@@ -158,7 +158,7 @@ src/
 ├── App.css
 ├── index.css
 └── main.jsx
-
+```
 ---
 
 ## 🧑‍💻 Author Notes
