@@ -19,6 +19,14 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
     layout,
   } = styles;
 
+  const alignmentMap = {
+    left: "flex-start",
+    center: "center",
+    right: "flex-end",
+    "flex-start": "flex-start",
+    "flex-end": "flex-end",
+  };
+
   const themeVars = {
     "--preview-section-bg": sectionBgColor,
     "--preview-card-radius": `${cardBorderRadius}px`,
@@ -35,6 +43,7 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
   ];
 
   const isSplit = layout === "alternative";
+  console.log("Current alignment:", buttonAlignment);
 
   return (
     <main
@@ -111,7 +120,10 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
             Use the editor sidebar to tweak typography, colors, and layout.
           </p>
 
-          <div className="cta-row" style={{ justifyContent: buttonAlignment }}>
+          <div
+            className="cta-row"
+            style={{ justifyContent: alignmentMap[buttonAlignment] }}
+          >
             <button
               className="primary-btn large"
               style={{
@@ -124,6 +136,8 @@ export default function Preview({ styles, isSidebarOpen, onToggleSidebar }) {
               Preview Button
             </button>
           </div>
+
+
         </aside>
       </section>
     </main>

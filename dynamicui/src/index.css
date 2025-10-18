@@ -255,6 +255,28 @@ body {
   align-items: center;
   gap: 12px;
 }
+.preview-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.preview-title h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+
+.preview-title .muted {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  opacity: 0.9;
+}
+
 .hamburger {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid var(--border);
@@ -381,6 +403,7 @@ body {
   .slider {
     height: 5px;
   }
+  
 }
 
 /* === FOCUS STATES === */
